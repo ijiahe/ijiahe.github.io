@@ -6,4 +6,4 @@ This website just records how i learn CS as a major in the university from a com
 
 Thanks.
 
-website:(ijiahe.github.io/homepage)
+[website:](ijiahe.github.io/homepage)
