@@ -1,55 +1,18 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <title>#HOMEPAGE#</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale=1">
-    <meta name="Keywords" content="Iva,19434,IJIAHE's Homepage,IJIAHE的主页">
-    <meta name="Description" content="This is the Github HOMEPAGE created by IJIAHE.这是IJIAHE基于Github制作的主页">
-    <meta name="Author" content="ijiahe">
-    <style>
-        @font-face{
-            font-family:"NotoSansSC-Thin";
-            src:url(font/Noto_Sans_SC/NotoSansSC-Thin.otf);
-        }
-        .navbar{
-            font-family:NotoSansSC-Thin;
-            font-size:50px;
-        }
-        a:link,a:visited,a:hover{
-            text-decoration: none;
-            color:aliceblue
-        }
-    </style> 
-
+  <script>
+    function myFunction()
+    {
+    document.getElementById("demo").innerHTML="My First JavaScript Function";
+    }
+  </script>
 </head>
 
-    <body>
-        <nav>
-            <div class="navbar">
-                <ul>
-                    <li id="logo">
-                        <a href="homepage.html">
-                            <span><img src="../ProfilePhoto.png" width=50px height=50px></span>
-                        </a>
-                    </li>
+<body>
+  <h1>My Web Page</h1>
+  <p id="demo">A Paragraph.</p>
+  <button type="button" onclick="myFunction()">点击这里</button>
 
-                    <li id="about">
-                        <a href="about\about_homepage.html"><span><img src="about.png"></span>About</a>
-                    </li>
-<!--图片都还没做呢-->
-                    <li id="blog">
-                        <a href="blogs/blog_homepage.html"><span><img src="blog.png"></span>Blog</a>
-                    </li>
-
-                    <li id="story">
-                        <a href="blogs/blog_homepage.html"><span><img src="story.png"></span>Story</a>
-                    </li>  
-
-                    <li id="testsite">
-                        <a href="blogs/blog_homepage.html"><span><img src="testsite.png"></span>testsite</a>
-                    </li>                  
-                </ul>
-                    
-        </nav>
-    </body>
+</body>
 </html>

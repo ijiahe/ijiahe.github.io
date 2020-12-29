@@ -11,6 +11,10 @@
                 font-family:"NotoSansSC-Thin";
                 src:url(font/Noto_Sans_SC/NotoSansSC-Thin.otf);
             }
+            @font-face{
+                font-family:"NotoSansSC-Light";
+                src:url(font/Noto_Sans_SC/NotoSansSC-Regular.otf);
+            }
             .navbar{
                 font-family:NotoSansSC-Thin;
                 font-size:30px;
@@ -32,26 +36,49 @@
                 margin: 0;
                 padding: 0;
                 background-color:black;
-                background-repeat: no-repeat;
-                background-attachment: fixed;
-                background:url("homepage_data/bkg/bkg1.jpg");
-                position:fixed;
-                background-position-x:133px;
-                width: 100%;
-                height: 100%;
+                background-image: url("homepage_data/bkg1.jpg");
+                background-repeat:no-repeat;
+                background-position: left;
+                background-position-x:128px;
+                overflow: hidden;
             }
             .thefooter{
                 position: absolute;
                 left:35px;
-                bottom: 10px;
+                bottom: 15px;
                 width: 100%;
                 list-style: none;
+            }
+            .dictum{
+                position: absolute;
+                text-align: left;
+                left:600px;
+                bottom:34px;
+                font-family:NotoSansSC-Light;
+                font-size:60px;
+                white-space: nowrap;
+            }
+            .dictum a:link,a:visited,a:hover{
+                text-decoration: none;
+                color:aliceblue;
+            }
+
+            .change_the_dictum{
+                position: absolute;;
+                left:1209px;
+                top:262px;
+                width: 100%;
+                height:100%;
             }
         </style> 
         <script>
             function mail()
             {
                 alert("ijiahe@foxmail.com");
+            }
+            function change_dictum()
+            {
+                document.getElementById("Bottom_on_blackhole").innerHTML="So We Have to Search & Explore";
             }
         </script>
     </head>
@@ -116,10 +143,11 @@
             <div class="thefooter">
 				<a href="https://github.com/ijiahe" target="view_window"><img src="homepage_data/github.png" width=20px height=20px></a>
                 <a href="homepage.html"><img src="homepage_data/mail.png" onclick="alert('ijiahe@foxmail.com')" width=20px height=20px style="position:relative;right:-10px;"></a>
-                <a href="https://space.bilibili.com/266730955" target="view_window"><img src="homepage_data/bilibili.png" width=20px height=20px style="position:relative;right:-20px;"></a>
+                <a href="https://space.bilibili.com/266730955" target="view_window"><img src="homepage_data/bilibili.png" width=21px height=21px style="position:relative;right:-20px;"></a>
             </div>     
         </nav>
-            <div class="bkgimage">
+        <div class="dictum">
+            <a href="javascript: change_dictum()" id="Bottom_on_blackhole">The More We Learn, The Less We Know</a>
         </div>
     </body>
 </html>
