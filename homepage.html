@@ -14,43 +14,105 @@
             .navbar{
                 font-family:NotoSansSC-Thin;
                 font-size:30px;
-                background:black;
-                width:100px;
+                background:rgb(0, 25, 0);
+                width:200px;
                 height:100%;
+                margin-left:-20px;
             }
+            .navbar ul li{
+                height:60px;
+                justify-content: center;
 
-            a:link,a:visited,a:hover{
+            }
+            .navbar a:link,a:visited,a:hover{
                 text-decoration: none;
                 color:aliceblue
             }
-        </style> 
+            body{
+                margin: 0;
+                padding: 0;
+            }
 
+            .thefooter{
+                position: absolute;
+                left:35px;
+                bottom: 10px;
+                width: 100%;
+                list-style: none;
+            }
+        </style> 
+        <script>
+            function mail()
+            {
+                alert("ijiahe@foxmail.com");
+            }
+        </script>
     </head>
 
     <body>
-        <nav>
-            <div class="navbar">
-                <ul style="list-style: none;margin:0px">
+        <nav class="navbar"> 
+        <!--Left Navigation Bar-->
+            <div>
+                <ul style="list-style:none">
                     <li id="logo">
                         <a href="homepage.html">
-                            <span><img src="ProfilePhoto.png" width=50px height=50px></span>
+                            <nobr>
+                                <div style="height:20px"></div> 
+                                <span><img src="homepage_data/ProfilePhoto.png" width=50px height=50px></span>
+                                <span><img src="homepage_data/sign.png" width=100px height=50px></span>
+                            </nobr>
                         </a>
                     </li>
+                    <div style="height:30px"></div> 
                     <li id="about">
-                        <a href="about\about_homepage.html"><span><img src="about.png"></span>About</a>
+                        <nobr>
+                            <div style="height:10px"></div> 
+                            <a href="about/about_homepage.html">
+                                <span>
+                                    <img src="about/about.png" width=30px height=30px>
+                                </span>About
+                            </a>
+                        </nobr>
                     </li>
-    <!--图片都还没做呢-->
                     <li id="blog">
-                        <a href="blogs/blog_homepage.html"><span><img src="blog.png"></span>Blog</a>
+                        <nobr>
+                            <div style="height:10px"></div> 
+                            <a href="blogs/blog_homepage.html">
+                                <span>
+                                    <img src="blogs/blog.png" width=30px height=30px>
+                                </span>Blog
+                            </a>
+                        </nobr>
                     </li>
                     <li id="story">
-                        <a href="blogs/blog_homepage.html"><span><img src="story.png"></span>Story</a>
+                        <nobr>
+                            <div style="height:10px"></div> 
+                            <a href="stories/story_homepage.html">
+                                <span>
+                                    <img src="stories/story.png" width=30px height=30px>
+                                </span>Story
+                            </a>
+                        </nobr>
                     </li>  
                     <li id="testsite">
-                        <a href="blogs/blog_homepage.html"><span><img src="testsite.png"></span>testsite</a>
+                        <nobr>
+                            <div style="height:10px"></div> 
+                            <a href="test/test_homepage.html">
+                                <span>
+                                    <img src="test/test.png" width=30px height=30px>
+                                </span>Testsite
+                            </a>
+                        </nobr>
                     </li>                  
-                </ul> 
-            </div>          
+                </ul>
+            </div>  
+            <div class="thefooter">
+				<a href="https://github.com/ijiahe" target="view_window"><img src="homepage_data/github.png" width=20px height=20px></a>
+                <a href="homepage.html"><img src="homepage_data/mail.png" onclick="alert('ijiahe@foxmail.com')" width=20px height=20px style="position:relative;right:-10px;"></a>
+                <a href="https://space.bilibili.com/266730955" target="view_window"><img src="homepage_data/bilibili.png" width=20px height=20px style="position:relative;right:-20px;"></a>
+            </div>     
         </nav>
+
+
     </body>
 </html>
