@@ -1,41 +1,56 @@
-<html lang="zh">
-<head>
-    <title>#HOMEPAGE#</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width-device-width, initial-scale=1">
-    <meta name="Keywords" content="IvaTR6,40770509016,Iva,IJIAHE's Homepage,IJIAHE的主页">
-    <meta name="Description" content="This is the Github HOMEPAGE created by IJIAHE.这是IJIAHE基于Github制作的主页">
-    <meta name="Author" content="ijiahe">
-    <style>
-        @font-face{
-            font-family:"NotoSansSC-Thin";
-            src:url(font/Noto_Sans_SC/NotoSansSC-Thin.otf);
-        }
-        .homepage_topnav{
-            font-family:NotoSansSC-Thin;
-            font-size:50px;
-        }
-        a:link,a:visited,a:hover{
-            text-decoration: none;
-        }
-        nav{
-            background:#222427;
-        }
-    </style> 
+<html lang="en">
+    <head>
+        <title>#HOMEPAGE#</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1">
+        <meta name="Keywords" content="Iva,19434,IJIAHE's Homepage,IJIAHE的主页">
+        <meta name="Description" content="This is the Github HOMEPAGE created by IJIAHE.这是IJIAHE基于Github制作的主页">
+        <meta name="Author" content="ijiahe">
+        <style>
+            @font-face{
+                font-family:"NotoSansSC-Thin";
+                src:url(font/Noto_Sans_SC/NotoSansSC-Thin.otf);
+            }
+            .navbar{
+                font-family:NotoSansSC-Thin;
+                font-size:30px;
+                background:black;
+                width:100px;
+                height:100%;
+            }
 
-</head>
+            a:link,a:visited,a:hover{
+                text-decoration: none;
+                color:aliceblue
+            }
+        </style> 
 
-<nav>
-    <div class="homepage_topnav">
-        <a href="homepage.html"><img src="ProfilePhoto.png" width=50px height=50px></a>
-        <a href="stories/story_homepage.html" style="color:aliceblue">About</a>
-        <a href="blogs/blog_homepage.html" style="color:aliceblue">Blog</a>
-        <a href="stories/story_homepage.html" style="color:aliceblue">Story</a>
-        <a href="stories/story_homepage.html" style="color:aliceblue">TestSite</a>
-    </div>
-</nav>
-    <div class="text">
-        <p style="color:black">ijiahe</p>
-    </div>
+    </head>
 
+    <body>
+        <nav>
+            <div class="navbar">
+                <ul style="list-style: none;margin:0px">
+                    <li id="logo">
+                        <a href="homepage.html">
+                            <span><img src="ProfilePhoto.png" width=50px height=50px></span>
+                        </a>
+                    </li>
+                    <li id="about">
+                        <a href="about\about_homepage.html"><span><img src="about.png"></span>About</a>
+                    </li>
+    <!--图片都还没做呢-->
+                    <li id="blog">
+                        <a href="blogs/blog_homepage.html"><span><img src="blog.png"></span>Blog</a>
+                    </li>
+                    <li id="story">
+                        <a href="blogs/blog_homepage.html"><span><img src="story.png"></span>Story</a>
+                    </li>  
+                    <li id="testsite">
+                        <a href="blogs/blog_homepage.html"><span><img src="testsite.png"></span>testsite</a>
+                    </li>                  
+                </ul> 
+            </div>          
+        </nav>
+    </body>
 </html>
