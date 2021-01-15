@@ -52,6 +52,7 @@
   })();
 </script>
 -->
+<!--
 <!DOCTYPE html>  
 <html>  
 <head lang="en">  
@@ -105,3 +106,43 @@
   
 </body>  
 </html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+#box{
+    width:100px;
+    height:100px;
+    background:orange;
+    position: absolute;
+    left:0;
+}
+</style>
+<body>
+
+
+    <div id="box"></div>
+    <p id="emm" style="z-index: 999;"></p>
+    
+</body>
+</html>
+<script>
+
+var oBox = document.getElementById('box');
+var num = 0 , speed;
+
+
+oBox.onclick = function(){
+    setInterval(function(){
+        speed = 0.05*(100-num);
+        num = num + speed;
+        oBox.style.left = num+'px';
+    },10);
+    document.getElementById("emm").innerHTML = num;
+}
+
+</script>
