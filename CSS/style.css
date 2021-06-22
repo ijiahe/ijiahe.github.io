@@ -1,0 +1,132 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+body {
+	width: 100vm;
+	background-color: #f2f2f2;
+}
+.navbar {
+	position: relative;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #fff;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);  
+}
+
+.contacts{
+    position:absolute;
+    right:10px;
+    top:3px;
+}
+
+.contacts a{
+    padding-right:10px;
+    cursor: pointer;
+}
+
+.contacts a img:hover{
+    filter:brightness(10%);
+}
+
+.contacts a img{
+    width:20px;
+    transition: all 0.3s;
+}
+
+.navbar input {
+	display: none;
+}
+.navbar label {
+	position: absolute;
+	top: 0;
+	left: 200px;
+	font-size: 20px;
+	color: #666;
+	padding-left: 20px;
+	cursor: pointer;
+	/* 加过渡 */
+	transition: all 0.3s;
+}
+.navbar label:hover {
+    filter:brightness(10%);
+}
+.navbar label span{
+    position: relative;
+    width:100%;
+    font-size:20px;
+    padding-left: 30px;
+    color:rgba(102,102,102,0);
+    transition: all 0.3s;
+}
+
+.navbar ul {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200px;
+	height: 100vh;
+	background-color: #20222a;
+	transition: all 0.3s;
+}
+.navbar ul li {
+	width: 100%;
+	height: 90px;
+	margin-bottom: 10px;
+}
+.navbar ul li:first-child {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+}
+.navbar ul li:first-child img {
+	width: 80px;
+    padding-top:10px;
+    padding-bottom:5px;
+}
+.navbar ul li:first-child span {
+	color: #fff;
+	font-size: 14px;
+	white-space: nowrap;
+}
+.navbar ul li a {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	color: #d2d2d2;
+	text-decoration: none;
+	border-left: 6px solid transparent;
+}
+.navbar ul li a i {
+	font-size: 18px;
+    width: 10px;
+	margin: 0 15px;
+}
+.navbar ul li a span {
+	font-size: 16px;
+    padding-left: 10px;
+}
+.navbar ul li a:hover {
+	color: #fff;
+	border-left-color: #002ba0;
+}
+
+.navbar input:checked + label {
+	left: 0;
+}
+.navbar input:checked + label i {
+	transform: rotateY(180deg);
+}
+.navbar input:checked + label span {
+	color:rgba(102, 102, 102,1);
+}
+.navbar input:checked ~ ul {
+	left: -200px;
+}
