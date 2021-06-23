@@ -8,7 +8,7 @@ body {
 	background-color: #f2f2f2; 
 }
 .background{
-	background-image: url("../homepage-pix/tachibana_kanade_bkg.jpg");
+	background-image: url("../homepage-pix/Paul_Cézanne_bkg.jpg");
 	background-repeat: no-repeat;
 	background-size:cover;
 	overflow: hidden;
@@ -34,7 +34,7 @@ body {
 .contacts{
     position:absolute;
     right:10px;
-    top:3px;
+    top:10px;
 	white-space: nowrap;
 }
 .contacts a{
@@ -81,7 +81,7 @@ body {
 	left: -300px;
 	width: 300px;
 	height: 100vh;
-	background-color: rgba(250, 250, 250, 0.97);
+	background-color: rgba(250, 250, 250, 0.80);
 	transition: all 0.3s;
 }
 .navbar ul li {
@@ -139,7 +139,7 @@ body {
 	transform: rotateY(180deg);
 }
 .navbar input:checked + label span {
-	color:rgba(255, 255, 255, 0);
+	color:rgba(0, 0, 0, 0);
 }
 .navbar input:checked ~ ul {
 	left: 0px;
@@ -168,7 +168,7 @@ body {
 }
 .blogcard{
 	border-radius:10px;
-	background-color:rgba(255,255,255,90%);
+	background-color:rgba(255,255,255,80%);
 	transition: all 0.3s;
 	position: relative;
 	box-sizing: border-box;
