@@ -9,6 +9,13 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="CSS/style.css">
 	</head>
+	<script type="text/javascript">
+		saying=['The More We Learn The Less We Know', '音无结弦之时 立于浮华之世', 'Stay Hungry Stay Foolish', '听说樱花飘落的速度是秒速五厘米哦','嗨 海绵宝宝 我们去抓水母吧','秋深し 情けは人の ためならず','世界上 没有一拳解决不了的事 如果有 那就两拳', '我秃了 我也变强了'];
+		ran=Math.floor(Math.random()*saying.length);
+		function dictum(){
+			document.write(saying[ran]);
+		}
+	</script>
 	<body>
 		<div class="background"></div>
 		<div class="navbar">
@@ -26,6 +33,7 @@
 			<ul>
 				<li>
 					<img src="homepage-pix/ProfilePhoto.png" alt="这是我的头像，别摸了X">
+					<span id="xiaowai"><script>dictum()</script></span>
 				</li>
 				<li>
 					<a href="homepage.html">

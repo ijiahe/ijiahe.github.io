@@ -20,6 +20,7 @@ body {
 	bottom:0;
 	right: 0;
 	left: 0;
+	filter:brightness(90%);
 }
 .navbar {
 	position: fixed;
@@ -27,8 +28,8 @@ body {
 	height: 50px;
 	line-height: 50px;
 	background-color: rgba(255,255,255,0);
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);  
 	z-index:2;
+	transition: all 0.3s;
 }
 .contacts{
     position:absolute;
@@ -37,14 +38,14 @@ body {
 	white-space: nowrap;
 }
 .contacts a{
-    padding-right:10px;
+    padding-right:18px;
     cursor: pointer;
 }
 .contacts a img:hover{
-    filter:brightness(10%);
+    filter:brightness(90%);
 }
 .contacts a img{
-    width:20px;
+    width:30px;
     transition: all 0.3s;
 }
 
@@ -55,8 +56,8 @@ body {
 	position: absolute;
 	top: 0;
 	left: 0px;
-	font-size: 20px;
-	color: #666;
+	font-size: 25px;
+	color: rgb(255, 255, 255);
 	padding-left: 20px;
 	cursor: pointer;
 	/* 加过渡 */
@@ -64,23 +65,23 @@ body {
 	white-space: nowrap;
 }
 .navbar label:hover {
-    filter:brightness(10%);
+	filter:brightness(80%);
 }
 .navbar label span{
     position: relative;
     width:100%;
-    font-size:20px;
+    font-size:25px;
     padding-left: 30px;
-    color:rgba(102,102,102,1);
+    color:rgb(255, 255, 255);
     transition: all 0.3s;
 }
 .navbar ul {
 	position: fixed;
 	top: 0;
-	left: -200px;
-	width: 200px;
+	left: -300px;
+	width: 300px;
 	height: 100vh;
-	background-color: rgba(255,255,255,90%);
+	background-color: rgba(250, 250, 250, 0.97);
 	transition: all 0.3s;
 }
 .navbar ul li {
@@ -94,16 +95,18 @@ body {
 	align-items: center;
 	flex-direction: column;
 	width: 100%;
-	height: 150px;
-	padding: 10px;
+	height: 200px;
+	padding: 0px;
+	border-bottom: 1px solid rgba(0, 0, 0,0.6);
 }
 .navbar ul li:first-child img {
 	width: 80px;
-    padding-top:10px;
-    padding-bottom:5px;
+    padding-top:30px;
+    padding-bottom:10px;
+
 }
 .navbar ul li:first-child span {
-	color: #fff;
+	color: rgb(0, 0, 0);
 	font-size: 14px;
 	white-space: nowrap;
 }
@@ -112,7 +115,7 @@ body {
 	align-items: center;
 	width: 100%;
 	height: 100%;
-	color: #d2d2d2;
+	color: #000000;
 	text-decoration: none;
 	border-left: 6px solid transparent;
 }
@@ -126,17 +129,17 @@ body {
     padding-left: 10px;
 }
 .navbar ul li a:hover {
-	color: #fff;
+	color: rgb(100, 100, 100);
 	border-left-color: #002ba0;
 }
 .navbar input:checked + label {
-	left: 200px;
+	left: 300px;
 }
 .navbar input:checked + label i {
 	transform: rotateY(180deg);
 }
 .navbar input:checked + label span {
-	color:rgba(102, 102, 102,0);
+	color:rgba(255, 255, 255, 0);
 }
 .navbar input:checked ~ ul {
 	left: 0px;
