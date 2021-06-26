@@ -6,4 +6,4 @@
 
 仅此而已，thx
 
-[网站](https://ijiahe.github.io/homepage)
+[网站](https://ijiahe.github.io)
