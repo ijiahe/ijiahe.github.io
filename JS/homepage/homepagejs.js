@@ -10,4 +10,4 @@ saying=[
 ran=Math.floor(Math.random()*saying.length);
 function dictum(){
     document.write(saying[ran]);
-}
+};

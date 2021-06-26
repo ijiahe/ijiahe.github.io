@@ -197,5 +197,40 @@ body {
 }
 
 .right{
+	flex:1 0 auto;
+	padding-top:100px;
+	transition: all 0.3s;
+	left:0px;
+	position:absolute;
+	z-index:1;
+	width:85%;
+	height:100%;
+	padding-left:60%;
+}
 
+.search-box{
+	border-radius:10px;
+	background-color:rgba(255,255,255,80%);
+	transition: all 0.3s;
+	position: relative;
+	box-sizing: border-box;
+	margin-bottom:30px;
+	box-shadow: 3px 5px rgba(0,0,0,50%);
+	height:50px;
+	text-align:center;
+}
+
+
+.search-box-text{
+	height:30px;
+	background-color: rgba(0,0,0,0);
+	border: none;
+	border-radius:2px;
+	width:80%;
+}
+
+.search-box-botton{
+	height:30px;
+	background-color: rgba(0,0,0,0);
+	border: none;
 }
