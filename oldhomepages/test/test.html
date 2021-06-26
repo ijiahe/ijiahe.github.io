@@ -1,0 +1,148 @@
+<!--<script type="text/javascript">
+
+  /* 原生js实现 */
+  //https://www.cnblogs.com/cckui/p/9887512.html
+
+  (function () {
+      var imgPX = 0;
+      var imgPY = 0;
+      var divWidth = 0;
+      var divHeight = 0;
+      var flag = false; // 记录鼠标是否按下
+
+      var the_title = document.querySelector(".thetitle");
+      var preserve3d = document.querySelector(".main_title");
+
+
+      console.log(preserve3d.offsetLeft, preserve3d.offsetTop)
+      console.log(the_title.clientWidth, the_title.clientHeight)
+
+      the_title.addEventListener("mouseenter", function (e) {
+          flag = true;
+          var evt = e || window.event;
+          preserve3d.addEventListener("mouseenter", function (e){
+              imgPX = preserve3d.offsetLeft;
+              imgPY = preserve3d.offsetTop;
+          }
+          )
+          divWidth = the_title.clientWidth;
+          divHeight = the_title.clientHeight;
+
+          document.addEventListener("mousemove", function (e) {
+              if (flag) {
+                  var evt = e || window.event;
+                  var mouseX = evt.clientX - imgPX;
+                  var mouseY = evt.clientY - imgPY;
+                  var X = mouseX - divWidth / 2;
+                  var Y = divHeight / 2 - mouseY;
+                  preserve3d.style.transform =
+                      `translateY(${ -Y / 15 }px) translateX(${ X / 40 }px) scale(${1.1})`
+              }
+          });
+
+          document.addEventListener("mouseout", function () {
+              flag = false;
+              preserve3d.style.transform = `translateY(${ 0 }px) translateX(${ 0 }px) scale(${1})`
+              document.removeEventListener("mouseout", function () {
+              flag = false;
+              });
+          })
+
+      });
+  })();
+</script>
+-->
+<!--
+<!DOCTYPE html>  
+<html>  
+<head lang="en">  
+    <meta charset="UTF-8">  
+    <title></title>  
+    <style>  
+        .box  {  
+            width: 300px;  
+            height: 200px;  
+            padding-top: 100px;  
+            background-color: pink;  
+            margin: 100px;  
+            text-align: center;  
+            font: 18px/30px "simsun";  
+            cursor: pointer;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="box" id="jiahe">  
+  
+    </div>  
+  
+    <script>  
+        //需求：鼠标进入盒子之后只要移动，哪怕1像素，随时更换里面的内容。（鼠标在盒子中的坐标）  
+        //技术点：新事件，onmousemove.在事件源上哪怕移动1像素也会触动这个事件。  
+            //一定程度上，模拟了定时器  
+        //步骤：  
+        //1.老三步和新五步  
+        //2.获取鼠标在整个页面的位置  
+        //3.获取盒子在整个页面的位置  
+        //4.用鼠标的位置减去盒子的位置赋值给盒子的内容。  
+  
+        //1.老三步和新五步  
+        var x = document.getElementsById("jiahe");  
+  
+        x.onmousemove = function (event) {  
+            event = event || window.event;  
+            //2.获取鼠标在整个页面的位置  
+            var pagex = event.pageX || scroll().left + event.clientX;  
+            var pagey = event.pageY || scroll().top + event.clientY;  
+            //3.获取盒子在整个页面的位置  
+            var xx = x.offsetLeft;  
+            var yy = x.offsetTop  
+            //4.用鼠标的位置减去盒子的位置赋值给盒子的内容。  
+            var targetx = pagex - xx;  
+            var targety = pagey - yy;  
+            this.innerHTML = "鼠标在盒子中的X坐标为："+targetx+"px;<br>鼠标在盒子中的Y坐标为："+targety+"px;"  
+        }  
+    </script>  
+  
+</body>  
+</html>
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+#box{
+    width:100px;
+    height:100px;
+    background:orange;
+    position: absolute;
+    left:0;
+}
+</style>
+<body>
+
+
+    <div id="box"></div>
+    <p id="emm" style="z-index: 999;"></p>
+    
+</body>
+</html>
+<script>
+
+var oBox = document.getElementById('box');
+var num = 0 , speed;
+
+
+oBox.onclick = function(){
+    setInterval(function(){
+        speed = 0.05*(100-num);
+        num = num + speed;
+        oBox.style.left = num+'px';
+    },10);
+    document.getElementById("emm").innerHTML = num;
+}
+
+</script>
