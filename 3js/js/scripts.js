@@ -28,7 +28,7 @@ function init() {
 
 
     let loader = new THREE.GLTFLoader()
-    loader.load('../mcskin2.glb', function(gltf){
+    loader.load('./mcskin2.glb', function(gltf){
         skin = gltf.scene.children[0]
         skin.scale.set(0.5, 0.5, 0.5)
         scene.add(gltf.scene)
