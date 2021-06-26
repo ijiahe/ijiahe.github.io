@@ -252,3 +252,23 @@ body {
 	border: none;
 	overflow: hidden;
 }
+
+.visitor-counter{
+	border-radius:10px;
+	background-color:rgba(255,255,255,80%);
+	transition: all 0.3s;
+	position: relative;
+	box-sizing: border-box;
+	margin-bottom:30px;
+	box-shadow: 3px 5px rgba(0,0,0,50%);
+	text-align:center;
+}
+.visitor-counter p{
+	color: rgba(0,0,0,1);
+	padding: 7px 10px 7px 10px;
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+
+.visitor-counter a img{
+	padding: 10px 0px 10px 0px;
+}
