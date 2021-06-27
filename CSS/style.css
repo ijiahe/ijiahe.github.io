@@ -220,19 +220,20 @@ body {
 	text-align:center;
 }
 
-
 .search-box-text{
 	height:30px;
 	background-color: rgba(0,0,0,0);
 	border: none;
 	border-radius:2px;
 	width:80%;
+	margin-top:10px;
 }
 
 .search-box-botton{
 	height:30px;
 	background-color: rgba(0,0,0,0);
 	border: none;
+	margin-top:10px;
 }
 .threejs{
 	border-radius:10px;
