@@ -52,7 +52,7 @@
         <div class="BlogBody">
             <div class="blogcard">
                 <div class="blogcard-title-bold">
-                    <p>Improve display quality of costmized image on OLED screen</p>    
+                    <p>How to improve display quality of costmized image on OLED screen</p>    
                 </div>
                 <div class="blogcard-date">
                     <i class="fa fa-calendar"></i>
@@ -63,19 +63,33 @@
                 <div class="blogcard-body">
                     <p>
                         1. <br>
-                        &ensp; If you want to know how to display costmized image on your arduino board, here is a project done by Arnov Sharma.
+                        If you want to know how to display costmized image on your arduino board, here is a project done by Arnov Sharma.
                     </p>
                     <p><br></p>
                     <div class="blogcard-quotation-page">
                         <a href="https://create.arduino.cc/projecthub/Arnov_Sharma_makes/displaying-your-own-photo-on-oled-display-5a8e8b" target="_blank">Displaying your own photo on OLED display</a>
                     </div>
+                    <p><br></p>
                     <p>
-                        <br>This blog will explain how to improve the quality of display via AdobePhotoshop.
+                        This blog will explain how to improve the quality of display via AdobePhotoshop.
                     </p>
                     <br>
                     <p>
-                        2. 
+                        2.<br>
+                        The OLED I bought can only display 2 color and cannot change its brightness. When displaying images like this with gradually changing color:
                     </p>
+                    <p><br></p><img src="pix\black&white.jpg"><p><br></p>
+                    <p>
+                        I converted it into C arrarys by using this online converter (Color Format may choose "Indexed 2 Colors"):
+                    </p>
+                    <p><br></p>
+                    <div class="blogcard-quotation-page">
+                        <a href="https://lvgl.io/tools/imageconverter" target="_blank">Online Image Converter</a>
+                    </div>
+                    <p><br></p>
+                    <p>The final image is not as expectation with gray scale:</p>
+                    <p><br></p><img src="pix\black&whiteDisplay.jpg" style="width:300px"><p><br></p>
+                    <p>For more complexed images, even harder to recognize:</p>
                 </div>
             </div>
         </div>
