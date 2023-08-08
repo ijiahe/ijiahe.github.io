@@ -105,14 +105,29 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="right">
-			<div class="search-box">  
-				<form action="http://www.google.com/search" method="get" target="_blank" autocomplete="off"> 
-					<input class="search-box-text" type="text" size="20" maxlength="255" autocomplete="off" placeholder="Search Bar For Solving Everything"/>  
+			<div class="search-box">  <!-- making an embedded search box -->
+				<form action="http://www.google.com/search" id="the_form" method="get" target="_blank" autocomplete="off"> 
+					<input class="search-box-text" id="query" name="que" type="text" size="20" maxlength="255" autocomplete="off" placeholder="Search Bar For Solving Everything"/>  
 					<button class="search-box-botton" type="submit">
 						<i class="fa fa-search"></i>
 					</button>
-				</form>  
+				</form>
+				<script>
+		      		const f = document.getElementById('the_form');
+					const q = document.getElementById('query');
+					const google = 'https://www.google.com/search?q=';
+
+					function submitted(event) {
+						event.preventDefault();
+						const url = google + q.value;
+						const win = window.open(url, '_blank');
+						win.focus();
+					}
+
+					f.addEventListener('submit', submitted);			
+				</script>  
 			</div> 
 			<div class="threejs">
 				<iframe src="3js/3js-mcskin.html"></iframe>
