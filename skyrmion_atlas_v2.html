@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>3D Skyrmion Classification Atlas</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh}
+  #root{padding:16px}
+  h1{text-align:center;font-size:20px;font-weight:700;letter-spacing:-.5px;margin-bottom:4px;color:#f0f6fc}
+  .sub{text-align:center;font-size:11px;color:#7d8590;margin-bottom:14px}
+  .btns{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin:0 auto 14px;max-width:660px}
+  .b{padding:5px 13px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:500;transition:all .15s;background:#161b22;color:#8b949e;border:1px solid #30363d}
+  .wrap{max-width:700px;margin:0 auto}
+  .cvs{background:#161b22;border-radius:12px;overflow:hidden;margin-bottom:14px;position:relative}
+  .cvs canvas{display:block;width:100%;height:400px;cursor:grab}
+  .cvs canvas:active{cursor:grabbing}
+  .hint{position:absolute;bottom:8px;left:0;right:0;text-align:center;pointer-events:none;z-index:2}
+  .hint span{font-size:10px;color:#7d8590;background:#0d1117cc;padding:3px 12px;border-radius:10px}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .left{flex:1 1 320px;background:#161b22;border-radius:12px;padding:16px}
+  .right{flex:1 1 250px;background:#161b22;border-radius:12px;border:1px solid #30363d;padding:16px}
+  .nm{font-size:18px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .bg{font-size:9px;padding:2px 10px;border-radius:10px;color:#fff;font-weight:600;display:inline-block}
+  .bg-y{background:#238636}.bg-n{background:#da3633}
+  .ds{font-size:12px;line-height:1.6;color:#8b949e;margin-bottom:12px}
+  .ps{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .pc{background:#21262d;border-radius:8px;padding:8px 10px}
+  .pl{font-size:9px;color:#7d8590;text-transform:uppercase;letter-spacing:.5px}
+  .pv{font-size:17px;font-weight:700;color:#f0f6fc;margin-top:1px;font-family:'Courier New',monospace}
+  .bl{font-size:10px;color:#7d8590;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+  .bd{margin-top:12px;font-size:11px;color:#8b949e;line-height:1.6}
+  .nb{max-width:700px;margin:16px auto 0;background:#161b22;border-radius:12px;padding:16px;border:1px solid #30363d}
+  .nb h3{font-size:13px;font-weight:700;color:#f0f6fc;margin-bottom:8px}
+  .nb p{font-size:11px;color:#8b949e;line-height:1.7;margin-bottom:6px}
+  .nb strong{color:#e6edf3}
+  .hl{color:#58a6ff}.wr{color:#f85149}
+  .nt{width:100%;border-collapse:collapse;margin:10px 0;font-size:11px}
+  .nt th{text-align:left;padding:6px 8px;border-bottom:1px solid #30363d;color:#f0f6fc;font-weight:600}
+  .nt td{padding:5px 8px;border-bottom:1px solid #21262d;color:#8b949e}
+  .range-tag{display:inline-block;font-size:9px;padding:2px 8px;border-radius:8px;background:#21262d;color:#8b949e;margin-left:6px;font-family:monospace}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+var TYPES=[
+  {id:"neel",name:"Néel Skyrmion",s:"+1",m:"+1",p:"+1",g:"0",
+   d:"Hedgehog: in-plane spins point radially outward. TM-polarized evanescent fields.",
+   pr:true,c:"#e63946",mb:1},
+  {id:"bloch",name:"Bloch Skyrmion",s:"+1",m:"+1",p:"+1",g:"π/2",
+   d:"Vortex: in-plane spins swirl tangentially. Bulk DMI in magnetics; TE modes in optics.",
+   pr:true,c:"#457b9d",mb:1},
+  {id:"anti",name:"Anti-Skyrmion",s:"−1",m:"−1",p:"+1",g:"varies",
+   d:"Hyperbolic with alternating Néel/Bloch sectors. Requires anisotropic DMI.",
+   pr:true,c:"#2a9d8f",mb:1},
+  {id:"bubble",name:"Bubble Skyrmion",s:"+1",m:"+1",p:"+1",g:"0",
+   d:"Step-like β(r) with thin domain wall. Tsesses SPP case (k∥ ≈ k₀, η ≈ 0.28).",
+   pr:true,c:"#f4a261",mb:1},
+  {id:"skyrmionium",name:"Skyrmionium",s:"0",m:"+1",p:"±1",g:"0",
+   d:"Nested skyrmion + anti-skyrmion. β: 0→π→2π. Two Bessel lobes. NOT protected.",
+   pr:false,c:"#9b5de5",mb:2},
+  {id:"target",name:"3π-skyrmion",s:"+1",m:"+1",p:"+1",g:"0",
+   d:"β winds 0→3π — three Bessel lobes. Concentric rings of spin reversal.",
+   pr:true,c:"#00bbf9",mb:3},
+  {id:"meron",name:"Meron",s:"½",m:"+1",p:"+1",g:"0",
+   d:"Half-skyrmion: β: 0→π/2. Covers one hemisphere. Two merons = one skyrmion.",
+   pr:false,c:"#f15bb5",mb:0.5},
+  {id:"vortex",name:"Phase Vortex",s:"N/A",m:"N/A",p:"N/A",g:"N/A",
+   d:"NOT a skyrmion! Scalar phase defect (π₁(S¹)). In-plane winding only.",
+   pr:false,c:"#adb5bd",mb:0}
+];
+
+var BD={
+  neel:"Smooth π twist: β goes 0 → π. Spin: ↑ → equator → ↓.",
+  bloch:"Same β as Néel but in-plane swirls tangentially (γ = π/2).",
+  anti:"Same β profile, azimuthal winding reversed (m = −1).",
+  bubble:"Step-like: β ≈ 0 in core, jumps to π in thin domain wall.",
+  skyrmionium:"2π twist: β: 0→π→2π. Inner + outer cancel: s = 0.",
+  target:"3π twist: β: 0→π→2π→3π. Three lobes. s = +1−1+1 = +1.",
+  meron:"Half twist: β: 0→π/2. One hemisphere. s = ½.",
+  vortex:"No radial twist — in-plane phase winding only."
+};
+
+// β(r) for each type — returns β in units of π
+function betaOf(t,f){
+  switch(t){
+    case"neel":case"bloch":case"anti":return f;
+    case"bubble":return f<.35?f*.08:f<.65?((f-.35)/.3):1-(1-f)*.08;
+    case"skyrmionium":return f*2;
+    case"target":return f*3;
+    case"meron":return f*.5;
+    default:return f;
+  }
+}
+
+function axisLabels(mb){
+  if(mb<=.5) return[[0,"0"],[.25,"π/4"],[.5,"π/2"]];
+  if(mb<=1) return[[0,"0"],[.5,"π/2"],[1,"π"]];
+  if(mb<=2) return[[0,"0"],[.5,"π/2"],[1,"π"],[1.5,"3π/2"],[2,"2π"]];
+  return[[0,"0"],[1,"π"],[2,"2π"],[3,"3π"]];
+}
+
+function rangeText(mb){
+  if(mb<=.5) return "0 → π/2";
+  if(mb<=1) return "0 → π";
+  if(mb<=2) return "0 → 2π";
+  return "0 → 3π";
+}
+
+// Build SVG chart for β(r)
+function betaSVG(t,mb,col){
+  if(t==="vortex"){
+    return '<svg width="100%" height="130" viewBox="0 0 270 130"><rect width="270" height="130" fill="#1a1f27" rx="8"/>'+
+      '<line x1="40" y1="105" x2="255" y2="105" stroke="#30363d"/>'+
+      '<line x1="40" y1="15" x2="40" y2="105" stroke="#30363d"/>'+
+      '<text x="35" y="108" text-anchor="end" font-size="8" fill="#7d8590" font-family="monospace">0</text>'+
+      '<text x="35" y="63" text-anchor="end" font-size="8" fill="#7d8590" font-family="monospace">π/2</text>'+
+      '<line x1="38" y1="60" x2="255" y2="60" stroke="#30363d" stroke-width=".5" stroke-dasharray="3,3"/>'+
+      '<line x1="40" y1="60" x2="255" y2="60" stroke="'+col+'" stroke-width="2.5" stroke-dasharray="7,5"/>'+
+      '<text x="148" y="82" text-anchor="middle" font-size="9" fill="#7d8590">β = π/2 everywhere (in-plane)</text>'+
+      '<text x="148" y="124" text-anchor="middle" font-size="9" fill="#7d8590">r / R →</text></svg>';
+  }
+  var labs=axisLabels(mb), gl="", i;
+  for(i=0;i<labs.length;i++){
+    var y=105-(labs[i][0]/mb)*90;
+    gl+='<line x1="38" y1="'+y+'" x2="255" y2="'+y+'" stroke="#30363d" stroke-width=".5" stroke-dasharray="3,3"/>';
+    gl+='<text x="35" y="'+(y+3)+'" text-anchor="end" font-size="8" fill="#7d8590" font-family="monospace">'+labs[i][1]+'</text>';
+  }
+  var pts="",N=120;
+  for(i=0;i<=N;i++){
+    var f=i/N, bp=betaOf(t,f);
+    var x=40+f*215, y=105-(bp/mb)*90;
+    pts+=(i===0?"M":"L")+x.toFixed(1)+","+y.toFixed(1);
+  }
+  return '<svg width="100%" height="130" viewBox="0 0 270 130"><rect width="270" height="130" fill="#1a1f27" rx="8"/>'+
+    '<line x1="40" y1="105" x2="255" y2="105" stroke="#30363d"/>'+
+    '<line x1="40" y1="15" x2="40" y2="105" stroke="#30363d"/>'+
+    gl+
+    '<text x="148" y="124" text-anchor="middle" font-size="9" fill="#7d8590">r / R →</text>'+
+    '<text x="12" y="60" text-anchor="middle" font-size="8" fill="#7d8590" transform="rotate(-90,12,60)">β(r)</text>'+
+    '<path d="'+pts+'" fill="none" stroke="'+col+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+
+// ─── 3D ─────────────────────────────────────────────────────────────
+function spin3d(t,r,phi){
+  var b,a;
+  switch(t){
+    case"neel":b=r*Math.PI;a=phi;break;
+    case"bloch":b=r*Math.PI;a=phi+Math.PI/2;break;
+    case"anti":b=r*Math.PI;a=-phi;break;
+    case"bubble":
+      if(r<.35)b=r*.25;else if(r<.65)b=((r-.35)/.3)*Math.PI;else b=Math.PI-(1-r)*.25;
+      a=phi;break;
+    case"skyrmionium":b=r*2*Math.PI;a=phi;break;
+    case"target":b=r*3*Math.PI;a=phi;break;
+    case"meron":b=r*Math.PI*.5;a=phi;break;
+    case"vortex":return{x:Math.cos(phi),y:Math.sin(phi),z:0};
+    default:b=r*Math.PI;a=phi;
+  }
+  return{x:Math.sin(b)*Math.cos(a),y:Math.sin(b)*Math.sin(a),z:Math.cos(b)};
+}
+
+function szCol(sz){
+  if(sz>=0){var t=sz;return new THREE.Color(.1+.15*(1-t),.25+.45*t,.85*t+.35*(1-t));}
+  var t=-sz;return new THREE.Color(.85*t+.35*(1-t),.15*(1-t),.1+.15*(1-t));
+}
+
+var sc,cam,ren,ag,cur="neel";
+var ms={dn:false,x:0,y:0,rx:-.6,ry:.3};
+
+function mkArr(t){
+  if(ag){sc.remove(ag);ag.traverse(function(c){if(c.geometry)c.geometry.dispose();if(c.material)c.material.dispose();});}
+  var g=new THREE.Group(),dR=3,sl=.28,hl=.14,sr=.04,hr=.1;
+  var sg=new THREE.CylinderGeometry(sr,sr,sl,6);sg.translate(0,sl/2,0);
+  var hg=new THREE.ConeGeometry(hr,hl,8);hg.translate(0,sl+hl/2,0);
+  var rings=t==="target"?9:t==="skyrmionium"?8:6;
+  for(var ri=0;ri<=rings;ri++){
+    var r=ri===0?0:(ri/rings)*dR;
+    var np=ri===0?1:Math.max(8,Math.round(ri*5.5));
+    for(var pi=0;pi<np;pi++){
+      var phi=(pi/np)*2*Math.PI,nr=r/dR;
+      var s=spin3d(t,nr,phi);
+      var mt=new THREE.MeshLambertMaterial({color:szCol(s.z)});
+      var ar=new THREE.Group();
+      ar.add(new THREE.Mesh(sg,mt));ar.add(new THREE.Mesh(hg,mt));
+      var dir=new THREE.Vector3(s.x,s.z,-s.y).normalize();
+      var q=new THREE.Quaternion();q.setFromUnitVectors(new THREE.Vector3(0,1,0),dir);
+      ar.quaternion.copy(q);
+      ar.position.set(r*Math.cos(phi),0,-r*Math.sin(phi));
+      g.add(ar);
+    }
+  }
+  var dg=new THREE.CircleGeometry(dR+.15,64);dg.rotateX(-Math.PI/2);
+  g.add(new THREE.Mesh(dg,new THREE.MeshLambertMaterial({color:0x1a1e26,transparent:true,opacity:.85,side:THREE.DoubleSide})));
+  var inf=TYPES.find(function(x){return x.id===t;});
+  var rg=new THREE.RingGeometry(dR+.1,dR+.18,64);rg.rotateX(-Math.PI/2);
+  var rm=new THREE.Mesh(rg,new THREE.MeshBasicMaterial({color:new THREE.Color(inf.c),transparent:true,opacity:.4,side:THREE.DoubleSide}));
+  rm.position.y=-.01;g.add(rm);
+  sc.add(g);ag=g;
+}
+
+function ucam(){
+  var d=8.5;
+  cam.position.set(d*Math.sin(ms.ry)*Math.cos(ms.rx),Math.max(d*Math.sin(-ms.rx),.5),d*Math.cos(ms.ry)*Math.cos(ms.rx));
+  cam.lookAt(0,0,0);
+}
+
+function init3(cv){
+  sc=new THREE.Scene();sc.background=new THREE.Color(0x0d1117);
+  cam=new THREE.PerspectiveCamera(40,cv.clientWidth/cv.clientHeight,.1,100);
+  ren=new THREE.WebGLRenderer({canvas:cv,antialias:true});
+  ren.setSize(cv.clientWidth,cv.clientHeight);
+  ren.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  sc.add(new THREE.AmbientLight(0x8899bb,.7));
+  var d1=new THREE.DirectionalLight(0xffffff,.9);d1.position.set(5,8,5);sc.add(d1);
+  var d2=new THREE.DirectionalLight(0x6688cc,.4);d2.position.set(-4,3,-3);sc.add(d2);
+  mkArr(cur);ucam();
+  (function a(){requestAnimationFrame(a);ren.render(sc,cam);})();
+  function dn(e){ms.dn=true;var p=e.touches?e.touches[0]:e;ms.x=p.clientX;ms.y=p.clientY;}
+  function mv(e){if(!ms.dn)return;var p=e.touches?e.touches[0]:e;
+    ms.ry+=(p.clientX-ms.x)*.008;ms.rx+=(p.clientY-ms.y)*.008;
+    ms.rx=Math.max(-1.5,Math.min(.1,ms.rx));ms.x=p.clientX;ms.y=p.clientY;ucam();}
+  function up(){ms.dn=false;}
+  cv.addEventListener("mousedown",dn);cv.addEventListener("mousemove",mv);
+  cv.addEventListener("mouseup",up);cv.addEventListener("mouseleave",up);
+  cv.addEventListener("touchstart",dn,{passive:true});cv.addEventListener("touchmove",mv,{passive:true});
+  cv.addEventListener("touchend",up);
+  window.addEventListener("resize",function(){
+    var w=cv.parentElement.clientWidth;cam.aspect=w/400;
+    cam.updateProjectionMatrix();ren.setSize(w,400);
+  });
+}
+
+function sel(id){cur=id;mkArr(id);upd();}
+
+function upd(){
+  var inf=TYPES.find(function(x){return x.id===cur;});
+  document.querySelectorAll(".b").forEach(function(b){
+    var t=TYPES.find(function(x){return x.id===b.dataset.id;});
+    if(b.dataset.id===cur){
+      b.style.border="2px solid "+t.c;b.style.background=t.c+"22";
+      b.style.color=t.c;b.style.fontWeight="700";
+    }else{
+      b.style.border="1px solid #30363d";b.style.background="#161b22";
+      b.style.color="#8b949e";b.style.fontWeight="500";
+    }
+  });
+  document.getElementById("cw").style.borderColor=inf.c+"33";
+  document.getElementById("il").style.borderColor=inf.c+"33";
+  document.getElementById("in").style.color=inf.c;
+  document.getElementById("in").textContent=inf.name;
+  var bg=document.getElementById("ib");
+  bg.textContent=inf.pr?"PROTECTED":"NOT PROTECTED";
+  bg.className="bg "+(inf.pr?"bg-y":"bg-n");
+  document.getElementById("id").textContent=inf.d;
+  var pv=document.querySelectorAll(".pv");
+  [inf.s,inf.m,inf.p,inf.g].forEach(function(v,i){pv[i].textContent=v;});
+  document.querySelectorAll(".pc").forEach(function(el){el.style.borderLeft="3px solid "+inf.c+"55";});
+
+  // β chart — dynamically rebuilt with correct axis for this type
+  var bc=document.getElementById("bc");
+  bc.innerHTML=betaSVG(cur,inf.mb,inf.c);
+
+  // range label
+  var rl=document.getElementById("rl");
+  if(cur==="vortex") rl.textContent="N/A";
+  else rl.textContent=rangeText(inf.mb);
+  rl.style.color=inf.c;
+
+  document.getElementById("bdd").textContent=BD[cur];
+}
+
+window.addEventListener("DOMContentLoaded",function(){
+  var root=document.getElementById("root");
+  root.innerHTML=
+    '<h1>3D Skyrmion Classification Atlas</h1>'+
+    '<p class="sub">Drag to rotate the spin texture in 3D</p>'+
+    '<div class="btns">'+TYPES.map(function(t){return'<button class="b" data-id="'+t.id+'" onclick="sel(\''+t.id+'\')">'+t.name+'</button>';}).join("")+'</div>'+
+    '<div class="wrap">'+
+      '<div id="cw" class="cvs" style="border:1px solid #e6394633">'+
+        '<canvas id="cv"></canvas>'+
+        '<div class="hint"><span>Drag to rotate · Blue = S<sub>z</sub>&gt;0 · Red = S<sub>z</sub>&lt;0 · Arrow = spin</span></div>'+
+      '</div>'+
+      '<div class="row">'+
+        '<div id="il" class="left" style="border:1px solid #e6394633">'+
+          '<div class="nm"><span id="in"></span><span id="ib" class="bg bg-y"></span></div>'+
+          '<p id="id" class="ds"></p>'+
+          '<div class="ps">'+
+            '<div class="pc"><div class="pl">Skyrmion # s</div><div class="pv"></div></div>'+
+            '<div class="pc"><div class="pl">Vorticity m</div><div class="pv"></div></div>'+
+            '<div class="pc"><div class="pl">Polarity p</div><div class="pv"></div></div>'+
+            '<div class="pc"><div class="pl">Helicity γ</div><div class="pv"></div></div>'+
+          '</div>'+
+        '</div>'+
+        '<div class="right">'+
+          '<div class="bl">β(r) Polar Angle Profile <span id="rl" class="range-tag"></span></div>'+
+          '<div id="bc"></div>'+
+          '<div id="bdd" class="bd"></div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  var cv=document.getElementById("cv");
+  cv.style.width="100%";cv.style.height="400px";
+  init3(cv);
+  upd();
+});
+</script>
+</body>
+</html>
